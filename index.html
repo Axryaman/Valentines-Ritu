@@ -25,6 +25,7 @@
       max-width: 420px;
       width: 90%;
       animation: fadeIn 1.5s ease;
+      display: none;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
@@ -80,11 +81,35 @@
       from { transform: translateY(0); opacity: 1; }
       to { transform: translateY(-110vh); opacity: 0; }
     }
+    #curtain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ff758c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    #curtain h1 {
+      color: white;
+      font-size: 2rem;
+      text-align: center;
+      padding: 0 20px;
+    }
   </style>
 </head>
 <body>
 
   <audio id="bgMusic" src="blue.mp3"></audio>
+
+  <!-- Curtain Screen -->
+  <div id="curtain">
+    <h1>Tap anywhere to open your Valentine surprise 💖</h1>
+  </div>
 
   <div class="card" id="card">
     <h1>Ritu 💖</h1>
@@ -92,13 +117,10 @@
       You have a way of turning ordinary moments into memories I never want to forget.
       Every smile of yours, every conversation, every silence — it all means more to me than I can explain.
     </p>
-
     <p>
       So today, I just want to ask you something straight from my heart...
     </p>
-
     <h2>Will you be my Valentine? 🌹</h2>
-
     <div class="buttons">
       <button class="yes" onclick="sayYes()">Yes ❤️</button>
       <button class="no" onmouseover="moveNo()">No 😅</button>
@@ -106,8 +128,16 @@
   </div>
 
   <script>
+    const curtain = document.getElementById('curtain');
+    const card = document.getElementById('card');
+
+    // Show main card after curtain click
+    curtain.addEventListener('click', () => {
+      curtain.style.display = 'none';
+      card.style.display = 'block';
+    });
+
     function sayYes() {
-      const card = document.getElementById('card');
       const music = document.getElementById('bgMusic');
       music.play();
       card.innerHTML = `
